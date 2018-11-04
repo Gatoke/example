@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- @formatter:off -->
+    <changeSet id="1" author="gatoke">
+        <sql>
+            CREATE TABLE profile(
+            id                  INT8            PRIMARY KEY,
+            first_name          VARCHAR(255)    NOT NULL,
+            last_name           VARCHAR(255)    NOT NULL,
+            email               VARCHAR(255),
+            phone_area          INT8,
+            phone_number        INT8,
+            date_of_birth       DATE
+            );
+
+            CREATE TABLE profile_read_model(
+            id                  INT8            PRIMARY KEY,
+            first_name          VARCHAR(255)    NOT NULL,
+            last_name           VARCHAR(255)    NOT NULL,
+            email               VARCHAR(255),
+            phone_area          INT8,
+            phone_number        INT8,
+            date_of_birth       DATE,
+            creation_date       TIMESTAMPTZ     NOT NULL
+            );
+        </sql>
+    </changeSet>
+    <!-- @formatter:on -->
+
+</databaseChangeLog>

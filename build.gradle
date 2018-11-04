@@ -1,13 +1,13 @@
 buildscript {
-	ext {
-		springBootVersion = '2.1.0.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext {
+        springBootVersion = '2.1.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
 }
 
 apply plugin: 'java'
@@ -20,29 +20,42 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 10
 
 repositories {
-	mavenCentral()
-	maven { url "https://repo.spring.io/milestone" }
+    mavenCentral()
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 
 ext {
-	springCloudVersion = 'Greenwich.M1'
+    springCloudVersion = 'Greenwich.M1'
 }
 
 dependencies {
-	implementation('org.springframework.boot:spring-boot-starter-actuator')
-	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-	implementation('org.springframework.boot:spring-boot-starter-security')
-	implementation('org.liquibase:liquibase-core')
-	implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
-	runtimeOnly('org.postgresql:postgresql')
-	compileOnly('org.projectlombok:lombok')
-	testImplementation('org.springframework.boot:spring-boot-starter-test')
-	testImplementation('org.springframework.security:spring-security-test')
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.liquibase:liquibase-core")
+    implementation("javax.xml.bind:jaxb-api:2.3.1")
+    runtimeOnly("org.postgresql:postgresql")
+    compileOnly("org.projectlombok:lombok")
+
+    // UTILS
+    implementation("org.apache.commons:commons-math3:3.6.1")
+    implementation("org.apache.commons:commons-lang3:3.8.1")
+
+    // SWAGGER
+    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation("io.springfox:springfox-swagger2:2.9.2")
+
+    // TEST
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
 }
 
 dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-	}
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
