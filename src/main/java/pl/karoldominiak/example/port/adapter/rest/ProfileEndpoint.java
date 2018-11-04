@@ -1,5 +1,6 @@
 package pl.karoldominiak.example.port.adapter.rest;
 
+import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,9 @@ import pl.karoldominiak.example.port.adapter.rest.model.CreateProfileRequest;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/profile", produces = MediaType.APPLICATION_JSON_VALUE)
 @AllArgsConstructor
+@Api(description = "Simple methods for read/write operations from/to the database.")
+@RequestMapping(value = "/profile", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProfileEndpoint {
 
     private final ProfileFacade profileFacade;
