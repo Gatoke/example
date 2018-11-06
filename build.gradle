@@ -52,6 +52,7 @@ dependencies {
     // TEST
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("com.github.tomakehurst:wiremock:2.19.0")
 }
 
 dependencyManagement {
