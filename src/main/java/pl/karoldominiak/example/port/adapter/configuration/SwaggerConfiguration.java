@@ -1,6 +1,7 @@
 package pl.karoldominiak.example.port.adapter.configuration;
 
 import com.google.common.base.Predicates;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -13,6 +14,7 @@ import java.util.function.Predicate;
 
 @Configuration
 @EnableSwagger2
+@ConditionalOnProperty(name = "swagger.enabled", havingValue = "true", matchIfMissing = true)
 public class SwaggerConfiguration {
 
     private static final Predicate<String> IGNORED_PATHS = PathSelectors.regex("(/actuator.*|/error)")::apply;
