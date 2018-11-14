@@ -6,9 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.context.event.SimpleApplicationEventMulticaster;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.scheduling.support.TaskUtils;
 import org.springframework.web.client.RestTemplate;
+import pl.karoldominiak.example.port.adapter.infrastructure.RestTemplateInterceptor;
+
+import java.util.List;
 
 @Configuration
 public class SpringConfiguration {
@@ -21,10 +26,11 @@ public class SpringConfiguration {
 
     @Bean
     public RestTemplate restTemplate() {
-        final SimpleClientHttpRequestFactory simpleClientHttpRequestFactory = new SimpleClientHttpRequestFactory();
-        simpleClientHttpRequestFactory.setReadTimeout(readTimeout);
-        simpleClientHttpRequestFactory.setConnectTimeout(connectTimeout);
-        return new RestTemplate(simpleClientHttpRequestFactory);
+        final RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(
+                createClientHttpRequestFactory()));
+        final List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+        interceptors.add(new RestTemplateInterceptor());
+        return restTemplate;
     }
 
     @Bean(name = "applicationEventMulticaster")
@@ -33,5 +39,12 @@ public class SpringConfiguration {
         eventMulticaster.setTaskExecutor(new SimpleAsyncTaskExecutor());
         eventMulticaster.setErrorHandler(TaskUtils.LOG_AND_SUPPRESS_ERROR_HANDLER);
         return eventMulticaster;
+    }
+
+    private SimpleClientHttpRequestFactory createClientHttpRequestFactory() {
+        final SimpleClientHttpRequestFactory simpleClientHttpRequestFactory = new SimpleClientHttpRequestFactory();
+        simpleClientHttpRequestFactory.setReadTimeout(readTimeout);
+        simpleClientHttpRequestFactory.setConnectTimeout(connectTimeout);
+        return simpleClientHttpRequestFactory;
     }
 }

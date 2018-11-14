@@ -8,6 +8,10 @@
         </encoder>
     </appender>
 
+    <logger name="pl.karoldominiak.example.communication" level="debug" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
     <root level="info">
         <appender-ref ref="console"/>
     </root>
