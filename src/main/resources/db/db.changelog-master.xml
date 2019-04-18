@@ -19,14 +19,14 @@
             );
 
             CREATE TABLE profile_read_model(
-            id                  INT8            PRIMARY KEY,
-            first_name          VARCHAR(255)    NOT NULL,
-            last_name           VARCHAR(255)    NOT NULL,
+            id                  INT8                        PRIMARY KEY,
+            first_name          VARCHAR(255)                NOT NULL,
+            last_name           VARCHAR(255)                NOT NULL,
             email               VARCHAR(255),
             phone_area          INT8,
             phone_number        INT8,
             date_of_birth       DATE,
-            creation_date       TIMESTAMPTZ     NOT NULL
+            creation_date       TIMESTAMP WITH TIME ZONE    NOT NULL
             );
         </sql>
     </changeSet>

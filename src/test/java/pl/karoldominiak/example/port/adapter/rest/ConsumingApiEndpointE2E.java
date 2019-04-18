@@ -18,7 +18,7 @@ public class ConsumingApiEndpointE2E extends IntegrationTest {
     public void shouldReturnPosts() throws Exception {
         // given
         stubFor(get(urlEqualTo("/posts")).willReturn(aResponse().withHeader("Content-Type", "application/json")
-                                                                .withBodyFile("getAllPostsResponse.json")));
+                .withBodyFile("getAllPostsResponse.json")));
 
         final File expectedFile = ResourceUtils.getFile("classpath:ApiResponse/getAllPostsResponse.json");
         final String expected = Files.contentOf(expectedFile, Charset.defaultCharset());
